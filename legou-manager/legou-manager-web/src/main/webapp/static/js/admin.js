@@ -7,7 +7,6 @@
  * | 基于Layui http://www.layui.com/
  * +----------------------------------------------------------------------
  */
-
 layui.define(['jquery', 'form', 'layer', 'element'], function(exports) {
     var $ = layui.jquery,
         form = layui.form,
@@ -318,6 +317,13 @@ layui.define(['jquery', 'form', 'layer', 'element'], function(exports) {
             content: url
         });
     }
+
+    /*
+        恢复 会员的 弹窗
+     */
+
+    window.w
+
     /*弹出层+传递ID参数*/
     window.WeAdminEdit = function(title, url, id, w, h) {
         if(title == null || title == '') {

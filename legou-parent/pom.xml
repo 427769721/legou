@@ -61,6 +61,11 @@
     <!--依赖的声明，这些声明不会立即显示在依赖的面板上，但是子工程可以继承-->
     <dependencyManagement>
         <dependencies>
+
+
+
+
+
             <!--JSP相关jar-->
             <dependency>
                 <groupId>javax.servlet</groupId>

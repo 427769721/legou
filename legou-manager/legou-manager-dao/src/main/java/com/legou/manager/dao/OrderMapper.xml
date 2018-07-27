@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.legou.manager.dao.OrderMapper" >
+  <sql id="Base_Column_List" >
+    o.order_id as orderId, o.payment, o.payment_type as paymentType, o.post_fee as postFee,
+    o.status, o.create_time as createTime, o.update_time as updateTime, o.payment_time as paymentTime,
+    o.consign_time as consignTime, o.end_time as endTime, o.close_time as closeTime, o.shipping_name as shippingName,
+    o.shipping_code as shippingCode, o.user_id as userId, o.buyer_message as buyerMessage,
+    o.buyer_nick as buyerNick, o.buyer_rate as buyerRate, u.uname as uname
+  </sql>
+
+  <sql id="Where_Column" >
+    WHERE o.payment_type != 0
+    <if test="orderQuery != null and orderQuery.start != null and orderQuery.start != ''">
+      AND o.create_time &gt;= #{orderQuery.start}
+    </if>
+    <if test="orderQuery != null and orderQuery.end != null and orderQuery.end != ''">
+      AND o.create_time &lt;= #{orderQuery.end}
+    </if>
+    <if test="orderQuery != null and orderQuery.status != null and orderQuery.status != 0">
+      and o.status = #{orderQuery.status}
+    </if>
+    <if test="orderQuery != null and orderQuery.orderId != null and orderQuery.orderId != ''">
+      and o.order_id LIKE '%${orderQuery.orderId}%'
+    </if>
+  </sql>
+
+  <select id="countOrder" parameterType="com.legou.manager.pojo.dto.OrderQuery" resultType="_long">
+    SELECT COUNT(1)
+    FROM tb_order o
+    <include refid="Where_Column" />
+  </select>
+
+  <select id="listOrdersBypage" resultType="com.legou.manager.pojo.vo.TbOrderCustom">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM tb_order o LEFT JOIN tb_user u
+    ON o.user_id = u.uid
+    <include refid="Where_Column" />
+    limit #{pageParam.offset},#{pageParam.limit}
+  </select>
+
+  <update id="updateOrder" parameterType="java.lang.String">
+      update tb_order set payment_type=0 WHERE  order_id=#{orderId}
+  </update>
+
+  <update id="updateDelivery">
+    update tb_order set shipping_name=#{shippingName}, shipping_code=#{shippingCode},status=4 WHERE  order_id=#{orderId}
+  </update>
+</mapper>

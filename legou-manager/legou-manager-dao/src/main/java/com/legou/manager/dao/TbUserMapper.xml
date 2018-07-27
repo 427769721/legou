@@ -1,0 +1,390 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.legou.manager.dao.TbUserMapper" >
+
+
+    <resultMap id="BaseResultMap" type="com.legou.manager.pojo.po.TbUser" >
+        <id column="uid" property="uid" jdbcType="VARCHAR" />
+        <result column="uname" property="uname" jdbcType="VARCHAR" />
+        <result column="upwd" property="upwd" jdbcType="VARCHAR" />
+        <result column="gender" property="gender" jdbcType="VARCHAR" />
+        <result column="birthday" property="birthday" jdbcType="VARCHAR" />
+        <result column="address" property="address" jdbcType="VARCHAR" />
+        <result column="phone" property="phone" jdbcType="VARCHAR" />
+        <result column="mailbox" property="mailbox" jdbcType="VARCHAR" />
+        <result column="membership" property="membership" jdbcType="INTEGER" />
+        <result column="status" property="status" jdbcType="INTEGER" />
+        <result column="lasttime" property="lasttime" jdbcType="VARCHAR" />
+        <result column="memberstatus" property="memberstatus" jdbcType="INTEGER" />
+    </resultMap>
+    <sql id="Example_Where_Clause" >
+        <where >
+            <foreach collection="oredCriteria" item="criteria" separator="or" >
+                <if test="criteria.valid" >
+                    <trim prefix="(" suffix=")" prefixOverrides="and" >
+                        <foreach collection="criteria.criteria" item="criterion" >
+                            <choose >
+                                <when test="criterion.noValue" >
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue" >
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue" >
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue" >
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause" >
+        <where >
+            <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+                <if test="criteria.valid" >
+                    <trim prefix="(" suffix=")" prefixOverrides="and" >
+                        <foreach collection="criteria.criteria" item="criterion" >
+                            <choose >
+                                <when test="criterion.noValue" >
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue" >
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue" >
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue" >
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List" >
+        uid, uname, upwd, gender, birthday, address, phone, mailbox, membership, status,
+        lasttime, memberstatus
+    </sql>
+    <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.legou.manager.pojo.po.TbUserExample" >
+        select
+        <if test="distinct" >
+            distinct
+        </if>
+        <include refid="Base_Column_List" />
+        from tb_user
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
+        </if>
+        <if test="orderByClause != null" >
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select
+        <include refid="Base_Column_List" />
+        from tb_user
+        where uid = #{uid,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+        delete from tb_user
+        where uid = #{uid,jdbcType=VARCHAR}
+    </delete>
+    <delete id="deleteByExample" parameterType="com.legou.manager.pojo.po.TbUserExample" >
+        delete from tb_user
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.legou.manager.pojo.po.TbUser" >
+        insert into tb_user (uid, uname, upwd,
+        gender, birthday, address,
+        phone, mailbox, membership,
+        status, lasttime, memberstatus
+        )
+        values (#{uid,jdbcType=VARCHAR}, #{uname,jdbcType=VARCHAR}, #{upwd,jdbcType=VARCHAR},
+        #{gender,jdbcType=VARCHAR}, #{birthday,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR},
+        #{phone,jdbcType=VARCHAR}, #{mailbox,jdbcType=VARCHAR}, #{membership,jdbcType=INTEGER},
+        #{status,jdbcType=INTEGER}, #{lasttime,jdbcType=VARCHAR}, #{memberstatus,jdbcType=INTEGER}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="com.legou.manager.pojo.po.TbUser" >
+        insert into tb_user
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="uid != null" >
+                uid,
+            </if>
+            <if test="uname != null" >
+                uname,
+            </if>
+            <if test="upwd != null" >
+                upwd,
+            </if>
+            <if test="gender != null" >
+                gender,
+            </if>
+            <if test="birthday != null" >
+                birthday,
+            </if>
+            <if test="address != null" >
+                address,
+            </if>
+            <if test="phone != null" >
+                phone,
+            </if>
+            <if test="mailbox != null" >
+                mailbox,
+            </if>
+            <if test="membership != null" >
+                membership,
+            </if>
+            <if test="status != null" >
+                status,
+            </if>
+            <if test="lasttime != null" >
+                lasttime,
+            </if>
+            <if test="memberstatus != null" >
+                memberstatus,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="uid != null" >
+                #{uid,jdbcType=VARCHAR},
+            </if>
+            <if test="uname != null" >
+                #{uname,jdbcType=VARCHAR},
+            </if>
+            <if test="upwd != null" >
+                #{upwd,jdbcType=VARCHAR},
+            </if>
+            <if test="gender != null" >
+                #{gender,jdbcType=VARCHAR},
+            </if>
+            <if test="birthday != null" >
+                #{birthday,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null" >
+                #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null" >
+                #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="mailbox != null" >
+                #{mailbox,jdbcType=VARCHAR},
+            </if>
+            <if test="membership != null" >
+                #{membership,jdbcType=INTEGER},
+            </if>
+            <if test="status != null" >
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="lasttime != null" >
+                #{lasttime,jdbcType=VARCHAR},
+            </if>
+            <if test="memberstatus != null" >
+                #{memberstatus,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.legou.manager.pojo.po.TbUserExample" resultType="java.lang.Integer" >
+        select count(*) from tb_user
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map" >
+        update tb_user
+        <set >
+            <if test="record.uid != null" >
+                uid = #{record.uid,jdbcType=VARCHAR},
+            </if>
+            <if test="record.uname != null" >
+                uname = #{record.uname,jdbcType=VARCHAR},
+            </if>
+            <if test="record.upwd != null" >
+                upwd = #{record.upwd,jdbcType=VARCHAR},
+            </if>
+            <if test="record.gender != null" >
+                gender = #{record.gender,jdbcType=VARCHAR},
+            </if>
+            <if test="record.birthday != null" >
+                birthday = #{record.birthday,jdbcType=VARCHAR},
+            </if>
+            <if test="record.address != null" >
+                address = #{record.address,jdbcType=VARCHAR},
+            </if>
+            <if test="record.phone != null" >
+                phone = #{record.phone,jdbcType=VARCHAR},
+            </if>
+            <if test="record.mailbox != null" >
+                mailbox = #{record.mailbox,jdbcType=VARCHAR},
+            </if>
+            <if test="record.membership != null" >
+                membership = #{record.membership,jdbcType=INTEGER},
+            </if>
+            <if test="record.status != null" >
+                status = #{record.status,jdbcType=INTEGER},
+            </if>
+            <if test="record.lasttime != null" >
+                lasttime = #{record.lasttime,jdbcType=VARCHAR},
+            </if>
+            <if test="record.memberstatus != null" >
+                memberstatus = #{record.memberstatus,jdbcType=INTEGER},
+            </if>
+        </set>
+        <if test="_parameter != null" >
+            <include refid="Update_By_Example_Where_Clause" />
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map" >
+        update tb_user
+        set uid = #{record.uid,jdbcType=VARCHAR},
+        uname = #{record.uname,jdbcType=VARCHAR},
+        upwd = #{record.upwd,jdbcType=VARCHAR},
+        gender = #{record.gender,jdbcType=VARCHAR},
+        birthday = #{record.birthday,jdbcType=VARCHAR},
+        address = #{record.address,jdbcType=VARCHAR},
+        phone = #{record.phone,jdbcType=VARCHAR},
+        mailbox = #{record.mailbox,jdbcType=VARCHAR},
+        membership = #{record.membership,jdbcType=INTEGER},
+        status = #{record.status,jdbcType=INTEGER},
+        lasttime = #{record.lasttime,jdbcType=VARCHAR},
+        memberstatus = #{record.memberstatus,jdbcType=INTEGER}
+        <if test="_parameter != null" >
+            <include refid="Update_By_Example_Where_Clause" />
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.legou.manager.pojo.po.TbUser" >
+        update tb_user
+        <set >
+            <if test="uname != null" >
+                uname = #{uname,jdbcType=VARCHAR},
+            </if>
+            <if test="upwd != null" >
+                upwd = #{upwd,jdbcType=VARCHAR},
+            </if>
+            <if test="gender != null" >
+                gender = #{gender,jdbcType=VARCHAR},
+            </if>
+            <if test="birthday != null" >
+                birthday = #{birthday,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null" >
+                address = #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null" >
+                phone = #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="mailbox != null" >
+                mailbox = #{mailbox,jdbcType=VARCHAR},
+            </if>
+            <if test="membership != null" >
+                membership = #{membership,jdbcType=INTEGER},
+            </if>
+            <if test="status != null" >
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="lasttime != null" >
+                lasttime = #{lasttime,jdbcType=VARCHAR},
+            </if>
+            <if test="memberstatus != null" >
+                memberstatus = #{memberstatus,jdbcType=INTEGER},
+            </if>
+        </set>
+        where uid = #{uid,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.legou.manager.pojo.po.TbUser" >
+        update tb_user
+        set uname = #{uname,jdbcType=VARCHAR},
+        upwd = #{upwd,jdbcType=VARCHAR},
+        gender = #{gender,jdbcType=VARCHAR},
+        birthday = #{birthday,jdbcType=VARCHAR},
+        address = #{address,jdbcType=VARCHAR},
+        phone = #{phone,jdbcType=VARCHAR},
+        mailbox = #{mailbox,jdbcType=VARCHAR},
+        membership = #{membership,jdbcType=INTEGER},
+        status = #{status,jdbcType=INTEGER},
+        lasttime = #{lasttime,jdbcType=VARCHAR},
+        memberstatus = #{memberstatus,jdbcType=INTEGER}
+        where uid = #{uid,jdbcType=VARCHAR}
+    </update>
+
+
+
+
+
+
+    <!--自己的xml-->
+
+  <sql id="Query_Colum" >
+    <where>
+      membership != 0  and status != 1
+      <if test="memberQuery != null and memberQuery.uname != null and memberQuery.uname != ''">
+        and uname like '%${memberQuery.uname}%'
+      </if>
+
+    </where>
+  </sql>
+
+
+
+
+  <select id="countItem" parameterType="com.legou.manager.pojo.dto.MemberQuery" resultType="long">
+
+ /* membership != 0 and memberstatus != 1;   不是 非会员 =0 并且  是 已经存在的用户 status != 1   因为 我需要查询所有的会员 所以不需要加判断会员状态 memberstatus  状态是正常的不是 失效=1
+ */
+    SELECT COUNT(1) from tb_user    <include refid="Query_Colum"/>
+  </select>
+
+
+
+
+  <select id="listitemBypage"   resultMap="BaseResultMap">
+    SELECT *
+    from tb_user
+    <include refid="Query_Colum"/>
+
+     limit #{pageParam.offset},#{pageParam.limit}
+  </select>
+
+<!--更改 按钮的  会员状态 删除 正常-->
+  <update id="updateMemberStatus" >
+    update tb_user set memberstatus= #{memberstatus} where uid = #{uid}
+  </update>
+
+    <!--查询已经删除的会员 的数量 分页-->
+    <select id="showbackupCount"   resultType="long">
+
+        SELECT COUNT(1) from tb_user  WHERE status = 1 and membership !=0
+    </select>
+
+    <!--查询 已经删除所有数据-->
+    <select id="showbackup"     resultMap="BaseResultMap">
+        SELECT *
+        from tb_user
+
+        WHERE status = 1 and membership != 0
+        limit #{pageParam.offset},#{pageParam.limit}
+    </select>
+
+
+    <!--恢复 被删除 的 会员 把status  置为0-->
+    <update id="backupMember" parameterType="java.lang.String">
+        update tb_user set status = 0 where uid =#{uid}
+    </update>
+
+</mapper>

@@ -16,7 +16,7 @@
     <dependencies>
         <dependency>
             <groupId>com.legou</groupId>
-            <artifactId>legou-common</artifactId>
+            <artifactId>legou-manager-pojo</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>

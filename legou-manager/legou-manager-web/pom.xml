@@ -47,7 +47,7 @@
 
 
     <build>
-        <finalName>Shop-manager-web</finalName>
+        <finalName>legou-manager-web</finalName>
         <plugins>
             <!--Tomcat的maven插件的坐标-->
             <plugin>
@@ -55,12 +55,20 @@
                 <artifactId>tomcat7-maven-plugin</artifactId>
                 <!--配置Tomcat插件-->
                 <configuration>
+
                     <!--端口号-->
                     <port>81</port>
                     <!--上下文-->
-                    <path>/manager</path>
+                    <path>/legou</path>
                     <!--解决GET请求中的中文乱码问题-->
                     <uriEncoding>UTF-8</uriEncoding>
+
+
+               <!--     <url>http://116.62.126.239:8080/manager/text</url>
+                     <username>admin</username>
+                     <password>admin123</password>
+                     <update>true</update>
+                     <path>/legou</path>-->
 
                 </configuration>
             </plugin>
